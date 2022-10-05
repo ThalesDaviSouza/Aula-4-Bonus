@@ -1,0 +1,79 @@
+using System;
+
+namespace App.Conta{
+    public class Banco{
+        private int numConta;
+        private String owner;
+        private double saldo;
+        private double limite;
+        private String type;
+        
+        public Banco(int numConta, String owner, String type, double saldo, double limite){
+            this.numConta = numConta;
+            this.owner = owner;
+            this.type = type;
+            this.saldo = saldo;
+            this.limite = limite;
+        }
+        
+        
+        // Gets
+        public int getNumConta(){
+            return numConta;
+        }
+        
+        public String getOwner(){
+            return owner;
+        }
+        
+        public String getType(){
+            return type;
+        }
+        
+        public double getSaldo(){
+            return saldo;
+        }
+        
+        public double getLimite(){
+            return limite;
+        }
+        
+        //Methods
+        public bool sacar(double x){
+            if(saldo >= x){
+                saldo -= x;
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
+        public bool depositar(double x){
+            if(x >= 0){
+                saldo += x;
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
+        public void printOwner(){
+            Console.WriteLine(owner);
+        }
+        
+        public bool transfer(Banco dest, double amount){
+            if(this.sacar(amount)){
+                dest.depositar(amount);
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
+        public override String ToString(){
+            return $"{numConta}, who the owner is {owner}, is from the type {type} and has {saldo} R$ and has {limite} R$ de limite";
+            
+        }
+        
+    }
+}
